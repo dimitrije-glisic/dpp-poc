@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Battery Passport Demo{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/batteries">Demo Battery Works GmbH <span>Digital Product Passport</span></a>
+    <nav>
+      <a href="/batteries">Batteries</a>
+      <a href="/docs">API docs</a>
+    </nav>
+  </header>
+  <div class="demo-banner" role="note">
+    Demo application: fictional manufacturer, all passport values are illustrative demo data.
+  </div>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>Digital Product Passport demo · not a regulatory-compliant passport</footer>
+</body>
+</html>

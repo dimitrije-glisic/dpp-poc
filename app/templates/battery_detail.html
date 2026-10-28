@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}{{ battery.product_id }} – details{% endblock %}
+{% block content %}
+<p><a href="/batteries">← All batteries</a></p>
+<h1>{{ battery.model }} <small>{{ battery.product_id }}</small></h1>
+
+<div class="grid">
+  <section class="card">
+    <h2>Product identity</h2>
+    <dl>
+      <dt>Product ID</dt><dd>{{ battery.product_id }}</dd>
+      <dt>Manufacturer</dt><dd>{{ battery.manufacturer }}</dd>
+      <dt>Model</dt><dd>{{ battery.model }}</dd>
+      <dt>Serial number</dt><dd>{{ battery.serial_number }}</dd>
+      <dt>Manufacturing date</dt><dd>{{ battery.manufacturing_date }}</dd>
+      <dt>Lifecycle status</dt>
+      <dd><span class="status status-{{ battery.lifecycle_status }}">{{ battery.lifecycle_status | replace('_', ' ') }}</span></dd>
+      <dt>Record created</dt><dd>{{ battery.created_at.strftime('%Y-%m-%d %H:%M') }}</dd>
+      <dt>Last updated</dt><dd>{{ battery.updated_at.strftime('%Y-%m-%d %H:%M') }}</dd>
+    </dl>
+  </section>
+
+  <section class="card qr-card">
+    <h2>Passport QR code</h2>
+    <img src="/api/batteries/{{ battery.product_id }}/qr?format=svg" alt="QR code linking to {{ passport_url }}" width="200" height="200">
+    <p><a href="/passport/{{ battery.product_id }}">{{ passport_url }}</a></p>
+    <p><a href="/api/batteries/{{ battery.product_id }}/qr?format=png" download="{{ battery.product_id }}-qr.png">Download PNG</a>
+      · <a href="/api/batteries/{{ battery.product_id }}">JSON</a></p>
+  </section>
+
+  {{ m.technical(battery) }}
+  {{ m.sustainability(battery) }}
+  {{ m.end_of_life(battery) }}
+</div>
+{% endblock %}

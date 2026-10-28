@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Registered batteries{% endblock %}
+{% block content %}
+<h1>Registered batteries</h1>
+{% if batteries %}
+<table class="data-table">
+  <thead>
+    <tr>
+      <th>Product ID</th><th>Model</th><th>Chemistry</th><th>Capacity</th>
+      <th>Manufactured</th><th>Status</th><th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for b in batteries %}
+    <tr>
+      <td><a href="/batteries/{{ b.product_id }}">{{ b.product_id }}</a></td>
+      <td>{{ b.model }}</td>
+      <td>{{ b.chemistry }}</td>
+      <td>{{ b.capacity_kwh }} kWh</td>
+      <td>{{ b.manufacturing_date }}</td>
+      <td><span class="status status-{{ b.lifecycle_status }}">{{ b.lifecycle_status | replace('_', ' ') }}</span></td>
+      <td><a href="/passport/{{ b.product_id }}">Passport</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="empty">No batteries registered yet. Run <code>python -m scripts.seed</code> or use
+  <a href="/docs">the API</a> to register one.</p>
+{% endif %}
+{% endblock %}

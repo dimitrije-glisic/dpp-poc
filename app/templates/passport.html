@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m %}
+{% block title %}Battery Passport {{ battery.product_id }}{% endblock %}
+{% block content %}
+<article class="passport">
+  <header class="passport-header">
+    <p class="eyebrow">Battery Passport</p>
+    <h1>{{ battery.manufacturer }} {{ battery.model }}</h1>
+    <p class="product-id">{{ battery.product_id }}</p>
+    <p>Status: <span class="status status-{{ battery.lifecycle_status }}">{{ battery.lifecycle_status | replace('_', ' ') }}</span></p>
+  </header>
+
+  <section class="card">
+    <h2>General information</h2>
+    <dl>
+      <dt>Manufacturer</dt><dd>{{ battery.manufacturer }}</dd>
+      <dt>Model</dt><dd>{{ battery.model }}</dd>
+      <dt>Serial number</dt><dd>{{ battery.serial_number }}</dd>
+      <dt>Manufacturing date</dt><dd>{{ battery.manufacturing_date }}</dd>
+    </dl>
+  </section>
+
+  {{ m.technical(battery) }}
+  {{ m.sustainability(battery) }}
+  {{ m.end_of_life(battery) }}
+
+  <section class="card qr-card">
+    <img src="/api/batteries/{{ battery.product_id }}/qr?format=svg" alt="QR code for this passport" width="140" height="140">
+  </section>
+</article>
+{% endblock %}

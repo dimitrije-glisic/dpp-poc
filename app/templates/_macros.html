@@ -1,0 +1,34 @@
+{% macro pct(value) %}{{ "%.0f %%" | format(value) if value is not none else "–" }}{% endmacro %}
+
+{% macro sustainability(b) %}
+<section class="card">
+  <h2>Sustainability <span class="tag">illustrative</span></h2>
+  <dl>
+    <dt>Carbon footprint</dt><dd>{{ b.carbon_footprint_kg_co2e_per_kwh }} kg CO₂e / kWh</dd>
+    <dt>Recycled cobalt</dt><dd>{{ pct(b.recycled_cobalt_pct) }}</dd>
+    <dt>Recycled lithium</dt><dd>{{ pct(b.recycled_lithium_pct) }}</dd>
+    <dt>Recycled nickel</dt><dd>{{ pct(b.recycled_nickel_pct) }}</dd>
+    <dt>Recycled lead</dt><dd>{{ pct(b.recycled_lead_pct) }}</dd>
+  </dl>
+</section>
+{% endmacro %}
+
+{% macro end_of_life(b) %}
+<section class="card">
+  <h2>End of life <span class="tag">illustrative</span></h2>
+  <p>{{ b.end_of_life_info }}</p>
+</section>
+{% endmacro %}
+
+{% macro technical(b) %}
+<section class="card">
+  <h2>Technical specifications</h2>
+  <dl>
+    <dt>Chemistry</dt><dd>{{ b.chemistry }}</dd>
+    <dt>Capacity</dt><dd>{{ b.capacity_kwh }} kWh</dd>
+    <dt>Nominal voltage</dt><dd>{{ b.nominal_voltage_v }} V</dd>
+    <dt>Weight</dt><dd>{{ b.weight_kg }} kg</dd>
+    <dt>Expected cycle life</dt><dd>{{ b.expected_cycle_life }} cycles</dd>
+  </dl>
+</section>
+{% endmacro %}
