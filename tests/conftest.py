@@ -3,17 +3,17 @@ import os
 # Must be set before the app is imported so the app's own engine never touches dpp.db.
 os.environ["DATABASE_URL"] = "sqlite://"
 
-from collections.abc import Iterator  # noqa: E402
+from collections.abc import Iterator
 
-import pytest  # noqa: E402
-from fastapi.testclient import TestClient  # noqa: E402
-from sqlalchemy import create_engine  # noqa: E402
-from sqlalchemy.orm import Session, sessionmaker  # noqa: E402
-from sqlalchemy.pool import StaticPool  # noqa: E402
+import pytest
+from fastapi.testclient import TestClient
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.pool import StaticPool
 
-from app import models  # noqa: E402, F401  (registers tables on Base.metadata)
-from app.database import Base, get_db  # noqa: E402
-from app.main import app  # noqa: E402
+from app import models  # noqa: F401  (registers tables on Base.metadata)
+from app.database import Base, get_db
+from app.main import app
 
 
 @pytest.fixture

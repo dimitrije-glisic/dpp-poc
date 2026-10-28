@@ -1,5 +1,7 @@
 # Battery Digital Product Passport – Demo
 
+[![CI](https://github.com/dimitrije-glisic/dpp-poc/actions/workflows/ci.yml/badge.svg)](https://github.com/dimitrije-glisic/dpp-poc/actions/workflows/ci.yml)
+
 A small, self-contained **Digital Product Passport (DPP)** demo for the fictional industrial battery
 manufacturer **Demo Battery Works GmbH**, built with FastAPI, SQLite, SQLAlchemy, Pydantic and Jinja2.
 
@@ -33,10 +35,20 @@ Open:
 - http://localhost:8000/passport/DBW-IB-NMC-2023-000201 – an example public passport
 - http://localhost:8000/docs – interactive API docs (try `POST /api/batteries` here)
 
-Run the tests:
+Run the tests and checks (the same ones CI runs):
 ```bash
 pytest
+ruff check .                          # lint
+ruff format --check .                 # formatting (run `ruff format .` to fix)
 ```
+
+### Continuous integration
+[.github/workflows/ci.yml](.github/workflows/ci.yml) runs on every push to `main` and on every pull request.
+It has two jobs:
+- **lint:** `ruff check` and `ruff format --check`
+- **test:** `pytest` on Python 3.12, 3.13 and 3.14
+
+Ruff and pytest settings live in [pyproject.toml](pyproject.toml).
 
 ### Scanning QR codes with a phone
 QR codes encode `PUBLIC_BASE_URL/passport/{product_id}`. The default `http://localhost:8000` only works on

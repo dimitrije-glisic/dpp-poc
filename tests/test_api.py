@@ -89,5 +89,7 @@ def test_update_status_invalid_value(client, created_battery):
 
 
 def test_update_status_unknown_battery(client):
-    response = client.patch("/api/batteries/NOPE-0000/status", json={"lifecycle_status": "recycled"})
+    response = client.patch(
+        "/api/batteries/NOPE-0000/status", json={"lifecycle_status": "recycled"}
+    )
     assert response.status_code == 404
